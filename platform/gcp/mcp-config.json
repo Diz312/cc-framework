@@ -1,0 +1,317 @@
+{
+  "_comment_overview": [
+    "GCP MCP Server Configuration Template — Layer 3 (Platform)",
+    "",
+    "Google Cloud offers fully-managed remote MCP servers for a growing set of services.",
+    "As of March 2026, official managed MCP servers exist for: BigQuery, Cloud Run,",
+    "Compute Engine, GKE, Cloud SQL, AlloyDB, Spanner, Firestore, Bigtable,",
+    "Cloud Logging, Cloud Monitoring, Resource Manager, and Google SecOps.",
+    "",
+    "However, many data engineering services (Dataflow, Cloud Composer, Pub/Sub,",
+    "Cloud Functions, Vertex AI Pipelines) do NOT yet have official MCP servers.",
+    "For those, use the gcloud-mcp CLI wrapper or direct gcloud/API via Bash tool.",
+    "",
+    "Authentication: Google Cloud managed MCP servers use OAuth 2.0 + IAM.",
+    "Run 'gcloud auth application-default login' before starting Claude Code.",
+    "Enable MCP on each service: gcloud beta services mcp enable SERVICE --project=PROJECT_ID",
+    "",
+    "IMPORTANT: Adapt this template to your engagement. Remove servers you do not need.",
+    "Only include servers for services actively used in the project."
+  ],
+
+  "mcpServers": {
+
+    "_comment_official_managed": "--- OFFICIAL GOOGLE CLOUD MANAGED MCP SERVERS (remote, OAuth 2.0) ---",
+
+    "gcp-bigquery": {
+      "_comment": [
+        "Official Google Cloud BigQuery MCP server (managed, remote).",
+        "Provides: schema inspection, query execution, table/dataset listing, job management.",
+        "Prerequisite: gcloud beta services mcp enable bigquery.googleapis.com --project=PROJECT_ID",
+        "Auth: Uses application-default credentials. Run 'gcloud auth application-default login'.",
+        "Docs: https://docs.cloud.google.com/bigquery/docs/use-bigquery-mcp"
+      ],
+      "type": "remote",
+      "url": "https://bigquery.googleapis.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "clientId": "REPLACE_WITH_OAUTH_CLIENT_ID",
+        "clientSecret": "REPLACE_WITH_OAUTH_CLIENT_SECRET",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "tokenUrl": "https://oauth2.googleapis.com/token",
+        "scopes": [
+          "https://www.googleapis.com/auth/bigquery",
+          "https://www.googleapis.com/auth/cloud-platform"
+        ]
+      }
+    },
+
+    "gcp-cloud-run": {
+      "_comment": [
+        "Official Google Cloud Run MCP server (managed, remote).",
+        "Provides: service listing, deployment management, revision inspection, traffic splitting.",
+        "Prerequisite: gcloud beta services mcp enable run.googleapis.com --project=PROJECT_ID",
+        "Docs: https://docs.cloud.google.com/run/docs/reference/mcp"
+      ],
+      "type": "remote",
+      "url": "https://run.googleapis.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "clientId": "REPLACE_WITH_OAUTH_CLIENT_ID",
+        "clientSecret": "REPLACE_WITH_OAUTH_CLIENT_SECRET",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "tokenUrl": "https://oauth2.googleapis.com/token",
+        "scopes": [
+          "https://www.googleapis.com/auth/cloud-platform"
+        ]
+      }
+    },
+
+    "gcp-cloud-logging": {
+      "_comment": [
+        "Official Google Cloud Logging MCP server (managed, remote).",
+        "Provides: log entry queries, log bucket management, sink configuration, log scopes.",
+        "Prerequisite: gcloud beta services mcp enable logging.googleapis.com --project=PROJECT_ID"
+      ],
+      "type": "remote",
+      "url": "https://logging.googleapis.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "clientId": "REPLACE_WITH_OAUTH_CLIENT_ID",
+        "clientSecret": "REPLACE_WITH_OAUTH_CLIENT_SECRET",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "tokenUrl": "https://oauth2.googleapis.com/token",
+        "scopes": [
+          "https://www.googleapis.com/auth/cloud-platform"
+        ]
+      }
+    },
+
+    "gcp-cloud-monitoring": {
+      "_comment": [
+        "Official Google Cloud Monitoring MCP server (managed, remote).",
+        "Provides: metric descriptors, time series data, alert policies, error groups.",
+        "Prerequisite: gcloud beta services mcp enable monitoring.googleapis.com --project=PROJECT_ID"
+      ],
+      "type": "remote",
+      "url": "https://monitoring.googleapis.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "clientId": "REPLACE_WITH_OAUTH_CLIENT_ID",
+        "clientSecret": "REPLACE_WITH_OAUTH_CLIENT_SECRET",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "tokenUrl": "https://oauth2.googleapis.com/token",
+        "scopes": [
+          "https://www.googleapis.com/auth/cloud-platform"
+        ]
+      }
+    },
+
+    "gcp-compute-engine": {
+      "_comment": [
+        "Official Google Compute Engine MCP server (managed, remote).",
+        "Provides: instance listing, VM management, image/disk inspection.",
+        "Prerequisite: gcloud beta services mcp enable compute.googleapis.com --project=PROJECT_ID"
+      ],
+      "type": "remote",
+      "url": "https://compute.googleapis.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "clientId": "REPLACE_WITH_OAUTH_CLIENT_ID",
+        "clientSecret": "REPLACE_WITH_OAUTH_CLIENT_SECRET",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "tokenUrl": "https://oauth2.googleapis.com/token",
+        "scopes": [
+          "https://www.googleapis.com/auth/cloud-platform"
+        ]
+      }
+    },
+
+    "gcp-gke": {
+      "_comment": [
+        "Official Google Kubernetes Engine MCP server (managed, remote).",
+        "Provides: cluster listing, node pool management, workload inspection, Kubernetes API access.",
+        "Prerequisite: gcloud beta services mcp enable container.googleapis.com --project=PROJECT_ID"
+      ],
+      "type": "remote",
+      "url": "https://container.googleapis.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "clientId": "REPLACE_WITH_OAUTH_CLIENT_ID",
+        "clientSecret": "REPLACE_WITH_OAUTH_CLIENT_SECRET",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "tokenUrl": "https://oauth2.googleapis.com/token",
+        "scopes": [
+          "https://www.googleapis.com/auth/cloud-platform"
+        ]
+      }
+    },
+
+    "gcp-resource-manager": {
+      "_comment": [
+        "Official Google Cloud Resource Manager MCP server (managed, remote).",
+        "Provides: project listing, folder/org inspection, IAM policy queries.",
+        "Prerequisite: gcloud beta services mcp enable cloudresourcemanager.googleapis.com --project=PROJECT_ID"
+      ],
+      "type": "remote",
+      "url": "https://cloudresourcemanager.googleapis.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "clientId": "REPLACE_WITH_OAUTH_CLIENT_ID",
+        "clientSecret": "REPLACE_WITH_OAUTH_CLIENT_SECRET",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "tokenUrl": "https://oauth2.googleapis.com/token",
+        "scopes": [
+          "https://www.googleapis.com/auth/cloud-platform"
+        ]
+      }
+    },
+
+    "_comment_community_stdio": "--- COMMUNITY / CLI-BASED MCP SERVERS (stdio, local) ---",
+
+    "gcloud-mcp": {
+      "_comment": [
+        "Official Google gcloud CLI MCP wrapper (community, stdio).",
+        "Wraps the gcloud CLI for natural-language interaction with ANY GCP service.",
+        "This is the FALLBACK for services without dedicated MCP servers.",
+        "Use this for: Dataflow, Cloud Composer, Pub/Sub, Cloud Functions, Vertex AI, IAM, etc.",
+        "Source: https://github.com/googleapis/gcloud-mcp",
+        "Install: npm install -g @google-cloud/gcloud-mcp"
+      ],
+      "command": "npx",
+      "args": [
+        "-y",
+        "@google-cloud/gcloud-mcp"
+      ]
+    },
+
+    "gcp-storage-mcp": {
+      "_comment": [
+        "Official Google Cloud Storage MCP server (community, stdio).",
+        "Provides: object CRUD, bucket management, IAM policy queries, GCS Insights.",
+        "Source: https://github.com/googleapis/gcloud-mcp (storage-mcp package)",
+        "Install: npm install -g @google-cloud/storage-mcp"
+      ],
+      "command": "npx",
+      "args": [
+        "-y",
+        "@google-cloud/storage-mcp"
+      ]
+    },
+
+    "gcp-observability-mcp": {
+      "_comment": [
+        "Official Google Cloud Observability MCP server (community, stdio).",
+        "Alternative to managed Logging/Monitoring servers — richer toolset.",
+        "Provides: log entries, metrics, traces, error groups, alert policies.",
+        "Source: https://github.com/googleapis/gcloud-mcp (observability-mcp package)",
+        "Install: npm install -g @google-cloud/observability-mcp"
+      ],
+      "command": "npx",
+      "args": [
+        "-y",
+        "@google-cloud/observability-mcp"
+      ]
+    },
+
+    "bigquery-community": {
+      "_comment": [
+        "Community BigQuery MCP server — read-only, lightweight alternative.",
+        "Use when you only need schema inspection and read-only query access.",
+        "Safer for development/exploration (no write operations).",
+        "Source: https://github.com/LucasHild/mcp-server-bigquery"
+      ],
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-server-bigquery",
+        "--project", "REPLACE_WITH_PROJECT_ID",
+        "--location", "REPLACE_WITH_LOCATION"
+      ]
+    },
+
+    "_comment_database_toolbox": "--- DATABASE-SPECIFIC MCP (via MCP Toolbox for Databases) ---",
+
+    "mcp-toolbox-databases": {
+      "_comment": [
+        "Google MCP Toolbox for Databases — unified MCP for Cloud SQL, AlloyDB, Spanner, Firestore.",
+        "Deploy as a Cloud Run service or run locally.",
+        "Provides: parameterized query execution with connection pooling and IAM auth.",
+        "Source: https://github.com/googleapis/genai-toolbox",
+        "Docs: https://cloud.google.com/blog/products/ai-machine-learning/mcp-toolbox-for-databases-now-supports-model-context-protocol",
+        "",
+        "Local setup (replace with your toolbox config path):",
+        "  toolbox --tools-file=./toolbox-config.yaml serve --address=localhost:5000"
+      ],
+      "command": "toolbox",
+      "args": [
+        "--tools-file", "./toolbox-config.yaml",
+        "serve",
+        "--address", "localhost:5000"
+      ]
+    }
+  },
+
+  "_comment_coverage_gaps": [
+    "--- GCP MCP ECOSYSTEM COVERAGE GAPS (as of March 2026) ---",
+    "",
+    "Services WITHOUT dedicated MCP servers — use gcloud-mcp or Bash tool with gcloud CLI:",
+    "",
+    "  Dataflow / Apache Beam:",
+    "    gcloud dataflow jobs list --region=REGION",
+    "    gcloud dataflow jobs describe JOB_ID --region=REGION",
+    "    gcloud dataflow jobs run JOB_NAME --gcs-location=TEMPLATE --region=REGION",
+    "",
+    "  Cloud Composer / Airflow:",
+    "    gcloud composer environments list --locations=REGION",
+    "    gcloud composer environments describe ENV --location=REGION",
+    "    gcloud composer environments run ENV --location=REGION trigger_dag -- DAG_ID",
+    "",
+    "  Pub/Sub (MCP planned but not yet released):",
+    "    gcloud pubsub topics list",
+    "    gcloud pubsub subscriptions list",
+    "    gcloud pubsub topics publish TOPIC --message=MESSAGE",
+    "",
+    "  Cloud Functions:",
+    "    gcloud functions list",
+    "    gcloud functions describe FUNCTION_NAME --region=REGION",
+    "    gcloud functions deploy FUNCTION_NAME --runtime=python312 ...",
+    "",
+    "  Vertex AI (Pipelines, Experiments, Model Registry):",
+    "    gcloud ai custom-jobs list --region=REGION",
+    "    gcloud ai models list --region=REGION",
+    "    gcloud ai endpoints list --region=REGION",
+    "",
+    "  Secret Manager:",
+    "    gcloud secrets list",
+    "    gcloud secrets versions access latest --secret=SECRET_NAME",
+    "",
+    "  IAM (beyond Resource Manager):",
+    "    gcloud projects get-iam-policy PROJECT_ID",
+    "    gcloud iam service-accounts list",
+    "",
+    "  Cloud Scheduler / Cloud Tasks:",
+    "    gcloud scheduler jobs list --location=REGION",
+    "    gcloud tasks queues list --location=REGION",
+    "",
+    "TIP: The gcloud-mcp server wraps the full gcloud CLI, making it the universal",
+    "fallback for any service without a dedicated MCP server. Prefer it over raw Bash",
+    "commands when possible, as it provides structured tool responses."
+  ],
+
+  "_comment_setup_checklist": [
+    "--- SETUP CHECKLIST ---",
+    "",
+    "1. Authenticate: gcloud auth application-default login",
+    "2. Set project: gcloud config set project PROJECT_ID",
+    "3. Enable MCP on managed services:",
+    "   gcloud beta services mcp enable bigquery.googleapis.com --project=PROJECT_ID",
+    "   (repeat for each managed MCP server you plan to use)",
+    "4. Create OAuth client for remote MCP servers:",
+    "   Google Cloud Console > Google Auth Platform > Clients > Create Client",
+    "   Add redirect URI: https://claude.ai/api/mcp/auth_callback (if using Claude.ai)",
+    "5. Install community servers: npm install -g @google-cloud/gcloud-mcp",
+    "6. Remove unused servers from this config before deploying to engagement",
+    "7. Test connectivity: run a simple query through each enabled server"
+  ]
+}

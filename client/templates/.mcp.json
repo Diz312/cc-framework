@@ -1,0 +1,36 @@
+{
+  "_comment": [
+    "MCP Server Configuration Template — Layer 4 (Client Engagement)",
+    "",
+    "Configure this file during /client-onboard or manually.",
+    "Only include servers needed for this engagement.",
+    "",
+    "Authentication options:",
+    "  - OAuth 2.0: For managed/remote MCP servers (Atlassian Cloud, GCP managed)",
+    "  - API Token: For Atlassian Server/DC, personal access tokens",
+    "  - SSO: For enterprise SSO-federated services",
+    "",
+    "IMPORTANT: Never commit credentials to version control.",
+    "Use environment variables or Claude Code's secure credential storage."
+  ],
+
+  "mcpServers": {
+
+    "atlassian": {
+      "_comment": [
+        "Official Atlassian MCP server (remote, for Cloud instances).",
+        "Provides: Jira issue CRUD, Confluence page CRUD, search.",
+        "Setup: https://developer.atlassian.com/cloud/mcp/",
+        "",
+        "For Atlassian Server/DC, use the community server instead:",
+        "  https://github.com/sooperset/mcp-atlassian",
+        "  command: uvx mcp-atlassian --jira-url URL --jira-token TOKEN"
+      ],
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/sse",
+      "headers": {
+        "Authorization": "Bearer REPLACE_WITH_ATLASSIAN_API_TOKEN"
+      }
+    }
+  }
+}
