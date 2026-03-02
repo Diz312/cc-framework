@@ -22,3 +22,6 @@ dist/
 
 # Node (if any tooling uses it)
 node_modules/
+
+# Claude Code session state
+.claude/worktrees/
