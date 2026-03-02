@@ -42,7 +42,7 @@ on AWS, GCP, Azure, Databricks, and Snowflake.
 ### 1. Install the framework
 
 ```bash
-git clone https://github.com/YOUR_ORG/cc-framework.git
+git clone https://github.com/Diz312/cc-framework.git
 cd cc-framework
 ./scripts/install.sh
 ```
@@ -86,6 +86,7 @@ environment (EA patterns, cloud platform, security, Jira/Confluence, data govern
 |-------|---------|
 | `/format-and-lint` | Python code formatting (black, ruff, mypy) |
 | `/test-runner` | pytest with coverage reporting |
+| `/whitepaper` | Render markdown to consulting-grade PDF (WeasyPrint, custom typography) |
 
 ### Agents (Sub-agents for complex tasks)
 | Agent | Purpose |

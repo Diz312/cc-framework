@@ -7,7 +7,7 @@
 #
 # Usage:
 #   ./scripts/install.sh                    # Install core only
-#   ./scripts/install.sh --domain data-eng  # Install core + data engineering
+#   ./scripts/install.sh --domain data-engineering  # Install core + data engineering
 #   ./scripts/install.sh --platform gcp     # Install core + GCP module
 #   ./scripts/install.sh --all              # Install everything
 #

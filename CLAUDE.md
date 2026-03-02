@@ -114,11 +114,14 @@ docs/
 # Validate installation
 ./scripts/validate-setup.sh
 
-# Re-render whitepapers
-python core/tools/render_whitepaper.py docs/whitepaper/executive-summary.md \
-  --output docs/whitepaper/executive-summary.pdf
-python core/tools/render_whitepaper.py docs/whitepaper/full-whitepaper.md \
-  --output docs/whitepaper/full-whitepaper.pdf
+# Re-render whitepapers (macOS: requires `brew install weasyprint` for DYLD path)
+DYLD_LIBRARY_PATH=/opt/homebrew/lib uv run --with weasyprint,markdown,jinja2 \
+  core/tools/render_whitepaper.py docs/whitepaper/executive-summary.md \
+  -o docs/whitepaper/executive-summary.pdf --cover-label "Executive Summary"
+
+DYLD_LIBRARY_PATH=/opt/homebrew/lib uv run --with weasyprint,markdown,jinja2 \
+  core/tools/render_whitepaper.py docs/whitepaper/full-whitepaper.md \
+  -o docs/whitepaper/full-whitepaper.pdf
 ```
 
 ---
