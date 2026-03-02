@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ css_path }}">
+  {% if custom_css_path %}
+  <link rel="stylesheet" href="{{ custom_css_path }}">
+  {% endif %}
+  <style>
+    {% if primary_color %}
+    :root {
+      --color-primary: {{ primary_color }};
+      --color-primary-dark: {{ primary_dark_color | default('#0f2440') }};
+    }
+    {% endif %}
+    {% if accent_color %}
+    :root {
+      --color-accent: {{ accent_color }};
+    }
+    {% endif %}
+  </style>
+</head>
+<body>
+
+  {# ============================================================
+     COVER PAGE
+     ============================================================ #}
+  <div class="cover">
+    <div class="cover-label">{{ cover_label | default('Whitepaper') }}</div>
+    <h1 class="cover-title">{{ title }}</h1>
+    {% if subtitle %}
+    <p class="cover-subtitle">{{ subtitle }}</p>
+    {% endif %}
+    <div class="cover-rule"></div>
+    <div class="cover-meta">
+      {% if authors %}
+      <div><strong>{{ authors }}</strong></div>
+      {% endif %}
+      {% if organization %}
+      <div>{{ organization }}</div>
+      {% endif %}
+      {% if date %}
+      <div>{{ date }}</div>
+      {% endif %}
+      {% if version %}
+      <div>Version {{ version }}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ============================================================
+     TABLE OF CONTENTS (optional)
+     ============================================================ #}
+  {% if toc_items %}
+  <div class="toc-page">
+    <div class="toc-title">Contents</div>
+    <ul class="toc-list">
+      {% for item in toc_items %}
+      <li class="toc-item-{{ item.level }}">
+        <a href="#{{ item.id }}">
+          {{ item.text }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {# ============================================================
+     BODY CONTENT
+     ============================================================ #}
+  <div class="body-content">
+    {# Hidden element for running header #}
+    <span class="report-title-string">{{ short_title | default(title) }}</span>
+
+    {{ body_html }}
+  </div>
+
+</body>
+</html>
